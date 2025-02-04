@@ -2,5 +2,10 @@
     "username": "admin",
     "password": "admin",
     "port": "2053",
-    "webBasePath": ""
+    "webBasePath": "",
+    "ssl": {
+        "enabled": false,
+        "cert": "./tests/keys/pub",
+        "key": "./tests/keys/private"
+    }
 }

@@ -6,6 +6,7 @@ import { parseInbound } from "$lib/utils/parseInbound";
 import { Mutex } from "async-mutex";
 import { ProxyAgent } from "proxy-agent";
 import NodeCache from "node-cache";
+import https from "https";
 import Axios from "axios";
 import urlJoin from "url-join";
 import qs from "qs";
@@ -24,7 +25,7 @@ export class Api {
     private readonly _mutex;
     private _cookie;
 
-    constructor(uri: string) {
+    constructor(uri: string, httpsAgent?: https.Agent) {
         const xui = decodeUri(uri);
         this.protocol = xui.protocol;
         this.host = xui.host;
@@ -46,7 +47,7 @@ export class Api {
             baseURL: xui.endpoint,
             proxy: false,
             httpAgent: new ProxyAgent(),
-            httpsAgent: new ProxyAgent(),
+            httpsAgent: httpsAgent || new ProxyAgent(),
             validateStatus: () => true,
         });
     }
